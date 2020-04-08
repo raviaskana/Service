@@ -12,11 +12,7 @@ public class PageUtil {
         int recPerPage = StringUtility.tryParse(pageLimit.get(),100);
         int startIndex = ((page * recPerPage)  - recPerPage );
         int endIndex = page * recPerPage;
-
-        int start = Math.min(startIndex,input.size());
-        int end = Math.min(endIndex,input.size());
-
-        List<String> filteredResults = Arrays.asList(Arrays.copyOfRange(input.toArray(new String[0]),start,end));
+        List<String> filteredResults = Arrays.asList(Arrays.copyOfRange(input.toArray(new String[0]),Math.min(startIndex,input.size()),Math.min(endIndex,input.size())));
         Result result = new Result();
         result.setCount(filteredResults.size());
         result.setData(filteredResults);

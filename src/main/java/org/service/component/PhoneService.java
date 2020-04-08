@@ -37,36 +37,16 @@ public class PhoneService {
     }
 
     private  void convert(String input, String resultSoFar, List<String> allResults) {
-
         if (input.length() == 0) {
-            // We have hit the end of the input phone number and thus the end of
-            // recursion
-            allResults.add(resultSoFar);
+            allResults.add(resultSoFar.toUpperCase());
         } else {
-            // Strip the next character off the front of the phone number
-
-
-            // Look up the list of mappings from that digit to all letters
             List<String> mappingArray = config.get(String.valueOf(input.charAt(0)));
-
-            // More robust error handling would throw an exception or do
-            // something else when an unknown character was encountered in the
-            // phone number.
             if (mappingArray != null) {
-
-                // We have processed the first digit in the rest of the number,
-                // so recurse with the rest of the number
                 String inputTail = input.substring(1);
-
-                // By iterating through the array the mapping lists do not all
-                // have to be the same size.
                 for (String nextLetter : mappingArray) {
-                    // Put the next mapped letter on the end of the result being
-                    // built and recurse
                     convert(inputTail, resultSoFar + nextLetter, allResults);
                 }
             }
         }
-
     }
 }
